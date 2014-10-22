@@ -201,6 +201,8 @@
     NSString* callbackId = command.callbackId;
     BOOL enableHighAccuracy = [[command.arguments objectAtIndex:0] boolValue];
 
+    [self.commandDelegate runInBackground:^{
+    
     if ([self isLocationServicesEnabled] == NO) {
         NSMutableDictionary* posError = [NSMutableDictionary dictionaryWithCapacity:2];
         [posError setObject:[NSNumber numberWithInt:PERMISSIONDENIED] forKey:@"code"];
@@ -227,6 +229,8 @@
             [self returnLocationInfo:callbackId andKeepCallback:NO];
         }
     }
+    
+    }];
 }
 
 - (void)addWatch:(CDVInvokedUrlCommand*)command
